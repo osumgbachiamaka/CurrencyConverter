@@ -2,8 +2,8 @@ body{
     background-color: #000000;
 }
 .container{
-    width: 70%;
-    margin-top: 60px;
+    width: 60%;
+    margin-top: 100px;
 }
 .row{
     padding: 20px;
@@ -18,7 +18,7 @@ body{
     margin: 0 auto;
 }
 button, select, input{
-    height: 40px;
+    height: 40px !important;
     border-radius: 8px;
 }
 .btn{
