@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Currency Converter</title>
+  <meta name="description" content="An online/offline currency converter app.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#51cbce"/>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    
+        <h3 class="title text-center text-muted">Currency Converter</h3>
+        <form id="currencyForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group has-success">
+                  <input type="number" class="form-control form-control-success text-center" placeholder="Enter Amount to convert" id="amountFrom">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-5 ">
+                  <label for="currencyFromList" class="col-form-label text-muted">From</label>
+                  <select class="select" id="currencyFromList" form="currencyForm">
+                  </select>
+                </div>
+                <div class="col-md-6">
+                <label for="currencyToList" class="col-form-label text-muted">To</label>
+                <select class="select" id="currencyToList" form="currencyForm">
+                </select>
+              </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-6">
+            <button class="btn btn-primary btn-block btn-round box-shadow--4dp" onclick="convert()">Convert</button>
+          </div>
+          <div class="col-md-6 col-sm-6 col-6">
+            <button id="amountTo" class="btn btn-success btn-block btn-round box-shadow--4dp">Result</button>
+          </div>
+        </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/idb-keyval@3/dist/idb-keyval-iife.min.js"></script>
+</body>
+
+</html>
