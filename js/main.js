@@ -30,6 +30,9 @@ function convert() {
     let amount = document.getElementById("amountFrom").value;
     let query = `${from}_${to}`;
 
+    let fromText = amount + ' ' + from;
+    let toText = ' '+ to;
+
     // check if form is valid before performing any operation
     if (amount === "") {
         alert('Please fill in the amount to convert');
@@ -48,7 +51,7 @@ function convert() {
                         .then(rate => {
                             let rateVal = rate[query];
                             let result = amount * rateVal;
-                            document.getElementById("amountTo").innerHTML = result.toFixed(2);
+                            document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
                             // save query to idb
                             idbKeyval.set(query, rateVal)
                                 .then(() => console.log('query added to idb and will be fetched from there next time!'))
@@ -62,7 +65,7 @@ function convert() {
                                 console.log(`saved rate for ${query} = ${val}`);
                                 console.log('fetched from idb');
                                 let result =  amount * val;
-                                document.getElementById("amountTo").value = result.toFixed(2);
+                                document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
                             }
                         );
                 }
@@ -75,11 +78,11 @@ function convert() {
                     // check if query exists in db
                     if (val === undefined) {
                         console.log('query not in idb yet.');
-                        document.getElementById("amountTo").innerHTML = '<p class="text-danger">Query not in database</p>';
+                        document.getElementById("amountTo").innerHTML = '<span class="text-danger">Query not in database</p>';
                     } else {
                         console.log(`saved rate for ${query} = ${val}`);
                         let result =  amount * val;
-                        document.getElementById("amountTo").innerHTML = result.toFixed(2);
+                        document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
                     }
                 });
         }
