@@ -23,6 +23,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 
 // convert selected currencies
 function convert() {
+    document.getElementById("amountTo").innerHTML = 'Converting';
     let from = document.getElementById("currencyFromList");
     from = from.options[from.selectedIndex].text;
     let to = document.getElementById("currencyToList");
@@ -56,6 +57,9 @@ function convert() {
                             idbKeyval.set(query, rateVal)
                                 .then(() => console.log('query added to idb and will be fetched from there next time!'))
                                 .catch(err => console.log('It failed!', err));
+                        }).catch(err =>{
+                            document.getElementById("amountTo").innerHTML = 'You are Offline, Reconnect';
+                            console.log('Error fetching file', err)
                         })
                 } else {
                     console.log('query in idb! val =', val);
