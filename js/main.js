@@ -15,19 +15,27 @@ if ('serviceWorker' in navigator) {
 fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     .then(response => response.json())
     .then(currencies => {
-        for (let currency in currencies.results) {
-            document.getElementById("currencyFromList").innerHTML += `<option>${currency}</option>`;
-            document.getElementById("currencyToList").innerHTML += `<option>${currency}</option>`;
+        for (let currency in currencies) {
+            for(const id in currencies[currency]){
+                let currencyname = currencies[currency][id]["currencyName"];
+                let currencyid = currencies[currency][id]["id"];
+                
+            document.getElementById("currencyFromList").innerHTML += `<option value= '${currencyid}'>${currencyname}</option>`;
+
+            document.getElementById("currencyToList").innerHTML += `<option value= '${currencyid}'>${currencyname}</option>`;
+                
+            }
         }
     });
 
 // convert selected currencies
 function convert() {
-    document.getElementById("amountTo").innerHTML = 'Converting';
+    document.getElementById("amountTo").style.color = '#fff';
+    document.getElementById("amountTo").innerHTML = 'Converting...';
     let from = document.getElementById("currencyFromList");
-    from = from.options[from.selectedIndex].text;
+    from = from.value;
     let to = document.getElementById("currencyToList");
-    to = to.options[to.selectedIndex].text;
+    to = to.value;
     let amount = document.getElementById("amountFrom").value;
     let query = `${from}_${to}`;
 
@@ -52,13 +60,14 @@ function convert() {
                         .then(rate => {
                             let rateVal = rate[query];
                             let result = amount * rateVal;
-                            document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
+                            document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(4) + toText;
                             // save query to idb
                             idbKeyval.set(query, rateVal)
                                 .then(() => console.log('query added to idb and will be fetched from there next time!'))
                                 .catch(err => console.log('It failed!', err));
                         }).catch(err =>{
-                            document.getElementById("amountTo").innerHTML = 'You are Offline, Reconnect';
+                            document.getElementById("amountTo").innerHTML = 'Rates not saved, Reconnect';
+                            document.getElementById("amountTo").style.color = 'red';
                             console.log('Error fetching file', err)
                         })
                 } else {
@@ -69,7 +78,7 @@ function convert() {
                                 console.log(`saved rate for ${query} = ${val}`);
                                 console.log('fetched from idb');
                                 let result =  amount * val;
-                                document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
+                                document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(4) + toText;
                             }
                         );
                 }
@@ -86,7 +95,7 @@ function convert() {
                     } else {
                         console.log(`saved rate for ${query} = ${val}`);
                         let result =  amount * val;
-                        document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(2) + toText;
+                        document.getElementById("amountTo").innerHTML = fromText + ' = ' + result.toFixed(4) + toText;
                     }
                 });
         }
